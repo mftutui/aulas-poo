@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Tutui
+ * @author Tutui e Paulo Sell
  */
 public class Principal {
 

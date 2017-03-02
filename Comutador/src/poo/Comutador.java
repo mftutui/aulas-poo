@@ -7,7 +7,7 @@ package poo;
 
 /**
  *
- * @author Tutui
+ * @author Tutui e Paulo Sell
  */
 public class Comutador {
     
