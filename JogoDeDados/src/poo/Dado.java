@@ -9,54 +9,50 @@ import java.util.Random;
 
 /**
  *
- * @author aluno
+ * @author Tutui
  */
 public class Dado {
-    
-    // atributos
+
+    // 
     private int dado;
-    
-    private int[] faces = new int[6];
-  
-    // metodos
-    
-    // metodo contrutos padrao
+    private int[] faces = new int[5];
+
     public Dado() {
     }
-    
-    // metodo construtor
-    public Dado(int dado) {
+
+    public int getDado() {
+        return dado;
+    }
+
+    public void setDado(int dado) {
         this.dado = dado;
     }
 
-    // metodos getters e setters
-    public int getDado1() {
-        return dado;
-    }
-    
-    public int jogar(){
+    public int jogar() {
         Random r = new Random();
         int i = r.nextInt(6);
-     
-        this.dado=i++;
-        
-        faces[i]++;
-        
-        return this.dado;
-        
-    }
-    
-    public void imprimirEstatisticas(){
+        int j = i++;
 
-        System.out.println("A face 1 foi sorteada:" + + "vezes." );
-        System.out.println("A face 2 foi sorteada:" + + "vezes." );
-        System.out.println("A face 3 foi sorteada:" + + "vezes." );
-        System.out.println("A face 4 foi sorteada:" + + "vezes." );
-        System.out.println("A face 5 foi sorteada:" + + "vezes." );
-        System.out.println("A face 6 foi sorteada:" + + "vezes." );
+        faces[j]++;
+
+        return this.dado;
     }
-    
-    public void zerar(){
-        
+
+    public void imprimirEstatisticas() {
+
+        int indice = 0; // arrumar isso
+
+        System.out.println("A face 1 foi sorteada:" + faces[0] + "vezes.");
+        System.out.println("A face 2 foi sorteada:" + faces[1] + "vezes.");
+        System.out.println("A face 3 foi sorteada:" + faces[2] + "vezes.");
+        System.out.println("A face 4 foi sorteada:" + faces[3] + "vezes.");
+        System.out.println("A face 5 foi sorteada:" + faces[4] + "vezes.");
+        System.out.println("A face 6 foi sorteada:" + faces[5] + "vezes.");
+    }
+
+    public void zerar() {
+        for (int i = 0; i < 5; i++) {
+            faces[i] = 0;
+        }
     }
 }
