@@ -62,3 +62,7 @@ nbdist/
 .nb-gradle/
 
 # End of https://www.gitignore.io/api/macos,netbeans,java
+/Comutador/nbproject/private/
+/Exercicios-Lab02/nbproject/private/
+/Lab02/nbproject/private/
+/JogoDeDados/nbproject/private/

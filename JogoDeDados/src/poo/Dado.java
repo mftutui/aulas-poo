@@ -13,10 +13,11 @@ import java.util.Random;
  */
 public class Dado {
 
-    // 
+    // atributos
     private int dado;
     private int[] faces = new int[5];
 
+    // metodos
     public Dado() {
     }
 
@@ -28,6 +29,10 @@ public class Dado {
         this.dado = dado;
     }
 
+    /**
+     * Médodo onde o valor do lado do dado é sorteado
+     * @return dado
+     */
     public int jogar() {
         Random r = new Random();
         int i = r.nextInt(6);
@@ -38,10 +43,10 @@ public class Dado {
         return this.dado;
     }
 
+    /**
+     * Este método imprime as estatísticas do dado selecionado
+     */
     public void imprimirEstatisticas() {
-
-        int indice = 0; // arrumar isso
-
         System.out.println("A face 1 foi sorteada:" + faces[0] + "vezes.");
         System.out.println("A face 2 foi sorteada:" + faces[1] + "vezes.");
         System.out.println("A face 3 foi sorteada:" + faces[2] + "vezes.");

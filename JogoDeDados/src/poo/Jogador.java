@@ -30,10 +30,18 @@ public class Jogador {
         this.saldo = saldo;
     }
     
+    /**
+     * Método para adicionar um valor ao salto ao jogador
+     * @param valor 
+     */
     public void addSaldo(int valor){
         this.saldo  = this.saldo + valor;
     }
     
+    /**
+     * Metodo para remover um valor do saldo do jogador
+     * @param valor 
+     */
     public void remSaldo(int valor){
         this.saldo = this.saldo - valor;
     }

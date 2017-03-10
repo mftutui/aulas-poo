@@ -16,7 +16,6 @@ public class Principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         
         Dado dado1 = new Dado();
         Dado dado2 = new Dado();
@@ -25,11 +24,11 @@ public class Principal {
         int op;
         
         while(true){
-            System.out.println("---Bem vindo ao jogo de dados 3000---");
-            System.out.println("1- Jogar");
-            System.out.println("2- Imprimir Saldo");
-            System.out.println("3- Imprimir estatísticas");
-            System.out.println("4- Sair");
+            System.out.println("...Bem vindo ao JOGO DE DADOS 3000...");
+            System.out.println("1. Jogar");
+            System.out.println("2. Imprimir saldo");
+            System.out.println("3. Imprimir estatísticas");
+            System.out.println("4. Sair");
             
             Scanner teclado = new Scanner(System.in);
             op = teclado.nextInt();
