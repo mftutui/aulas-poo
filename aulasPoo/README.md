@@ -1,2 +1,0 @@
-# aulasPoo
-Aulas práticas poo
