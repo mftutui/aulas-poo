@@ -17,15 +17,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Principal extends javax.swing.JFrame {
 
+    private final boolean preenchido[];
+
     public Principal() {
         initComponents();
+        this.preenchido = new boolean[5];
+
         // O Frame será desenhado no centro da área de trabalho
         this.setLocationRelativeTo(null);
 
         // Ou altera as propriedades do componente JList no editor de propriedades
         // do Netbeans ou faz por meio da linha abaixo
         //jLPermissoes.setModel(new DefaultListModel<>());
-        jBAdicionar.setEnabled(false);
     }
 
     /**
@@ -74,9 +77,9 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setText("Nome:");
 
         jTFNome.setNextFocusableComponent(jFTFCpf);
-        jTFNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFNomeActionPerformed(evt);
+        jTFNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFNomeKeyReleased(evt);
             }
         });
 
@@ -85,10 +88,20 @@ public class Principal extends javax.swing.JFrame {
         bGSexo.add(jRBFeminino);
         jRBFeminino.setText("Feminino");
         jRBFeminino.setNextFocusableComponent(jRBMasculino);
+        jRBFeminino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRBFemininoActionPerformed(evt);
+            }
+        });
 
         bGSexo.add(jRBMasculino);
         jRBMasculino.setText("Masculino");
         jRBMasculino.setNextFocusableComponent(jCBManha);
+        jRBMasculino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRBMasculinoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,6 +129,11 @@ public class Principal extends javax.swing.JFrame {
         }
         jFTFCpf.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jFTFCpf.setNextFocusableComponent(jRBFeminino);
+        jFTFCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFTFCpfKeyReleased(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Permissões"));
 
@@ -130,6 +148,11 @@ public class Principal extends javax.swing.JFrame {
 
         jLPermissoes.setModel(new DefaultListModel<>());
         jLPermissoes.setNextFocusableComponent(jBExcluir);
+        jLPermissoes.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jLPermissoesValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(jLPermissoes);
 
         jBExcluir.setText("Excluir");
@@ -179,12 +202,27 @@ public class Principal extends javax.swing.JFrame {
 
         jCBTarde.setText("Tarde");
         jCBTarde.setNextFocusableComponent(jCBNoite);
+        jCBTarde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBTardeActionPerformed(evt);
+            }
+        });
 
         jCBManha.setText("Manhã");
         jCBManha.setNextFocusableComponent(jCBTarde);
+        jCBManha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBManhaActionPerformed(evt);
+            }
+        });
 
         jCBNoite.setText("Noite");
         jCBNoite.setNextFocusableComponent(jCBPermissoes);
+        jCBNoite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBNoiteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -255,6 +293,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jBAdicionar.setText("Adicionar");
+        jBAdicionar.setEnabled(false);
         jBAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBAdicionarActionPerformed(evt);
@@ -361,6 +400,7 @@ public class Principal extends javax.swing.JFrame {
             // só adiciona se o elemento não estiver na lista
             if (!modeloLista.contains(permissao)) {
                 modeloLista.addElement(permissao);
+                this.preenchido[4] = true;
             }
 
             // deixando a seleção em branco
@@ -395,6 +435,7 @@ public class Principal extends javax.swing.JFrame {
         linha[1] = jFTFCpf.getText();
         linha[2] = (jRBFeminino.isSelected()) ? "Feminino " : "Masculino";
 
+        //verificando os botoes manha tarde e noite
         if (jCBManha.isSelected()) {
             linha[3] = "Manha";
         }
@@ -402,7 +443,19 @@ public class Principal extends javax.swing.JFrame {
             linha[3] = "Tarde";
         }
         if (jCBNoite.isSelected()) {
-            linha [3] = "Noite";
+            linha[3] = "Noite";
+        }
+        if (jCBManha.isSelected() && jCBTarde.isSelected()) {
+            linha[3] = "Manha/Tarde";
+        }
+        if (jCBTarde.isSelected() && jCBNoite.isSelected()) {
+            linha[3] = "Tarde/Noite";
+        }
+        if (jCBManha.isSelected() && jCBNoite.isSelected()) {
+            linha[3] = "Manha/Noite";
+        }
+        if (jCBManha.isSelected() && jCBTarde.isSelected() && jCBNoite.isSelected()) {
+            linha[3] = "Manha/Tarde/Noite";
         }
 
         DefaultListModel<String> modeloLista = (DefaultListModel<String>) jLPermissoes.getModel();
@@ -413,23 +466,20 @@ public class Principal extends javax.swing.JFrame {
 
         // limpando todos os campos
         jTFNome.setText("");
-        // ..... falta fazer para os demais
         jFTFCpf.setText("");
-        jCBManha.setSelected(false); 
-        jCBTarde.setSelected(false); 
+        jCBManha.setSelected(false);
+        jCBTarde.setSelected(false);
+        jCBNoite.setSelected(false);
         bGSexo.clearSelection();
+        this.jBLimparActionPerformed(evt);
 
         //mudando o foco do teclado para o campo Nome
         jTFNome.requestFocus();
-
-
     }//GEN-LAST:event_jBAdicionarActionPerformed
 
     private void jTableUsuariosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUsuariosMouseReleased
-
         // habilitando o botão que permitirá remover as linhas selecionadas
         jBRemover.setEnabled(true);
-
     }//GEN-LAST:event_jTableUsuariosMouseReleased
 
     private void jMISairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMISairActionPerformed
@@ -440,7 +490,7 @@ public class Principal extends javax.swing.JFrame {
     private void jMIAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIAbrirActionPerformed
         JFileChooser fc = new JFileChooser();
         int retorno = fc.showOpenDialog(this);
-        
+
         // se um arquivo foi selecionado, exiba um messageDialog
         if (retorno == JFileChooser.APPROVE_OPTION) {
             File arquivo = fc.getSelectedFile();
@@ -448,15 +498,77 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMIAbrirActionPerformed
 
-    private void jTFNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFNomeActionPerformed
-        if (jTFNome.getText().length() > 0){
-            jBAdicionar.setEnabled(true);
+    private void ativarBotaoAdicionar() {
+        int aux = 0;
+        for (int i = 0; i < 5; i++) {
+            if (this.preenchido[i] == true) {
+                aux++;
+            }
         }
-    }//GEN-LAST:event_jTFNomeActionPerformed
+        if (aux == 5) {
+            jBAdicionar.setEnabled(true);
+        } else {
+            jBAdicionar.setEnabled(false);
+        }
+    }
+
+    private void campoPreenchido(String texto, int id) {
+        this.preenchido[id] = jTFNome.getText().length() > 0;
+        this.ativarBotaoAdicionar();
+    }
 
     private void jBRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRemoverActionPerformed
-        // TODO add your handling code here:
+        //tem que implementar ainda
     }//GEN-LAST:event_jBRemoverActionPerformed
+
+    private void jTFNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFNomeKeyReleased
+        this.campoPreenchido(jTFNome.getText(), 0);
+        this.ativarBotaoAdicionar();
+    }//GEN-LAST:event_jTFNomeKeyReleased
+
+    private void jFTFCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTFCpfKeyReleased
+        this.campoPreenchido(jFTFCpf.getText(), 1);
+        this.ativarBotaoAdicionar();
+    }//GEN-LAST:event_jFTFCpfKeyReleased
+
+    private void jRBFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFemininoActionPerformed
+        if ((jRBFeminino.isSelected()) || (jRBMasculino.isSelected())) {
+            this.preenchido[2] = true;
+            this.ativarBotaoAdicionar();
+        }
+    }//GEN-LAST:event_jRBFemininoActionPerformed
+
+    private void jRBMasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBMasculinoActionPerformed
+        this.jRBFemininoActionPerformed(evt);
+    }//GEN-LAST:event_jRBMasculinoActionPerformed
+
+    private void jCBManhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBManhaActionPerformed
+        if (jCBManha.isSelected() || (jCBTarde.isSelected() || (jCBNoite.isSelected()))) {
+            this.preenchido[3] = true;
+        }
+        if (!jCBManha.isSelected() && (!jCBTarde.isSelected() && (!jCBNoite.isSelected()))) {
+            this.preenchido[3] = false;
+        }
+        this.ativarBotaoAdicionar();
+    }//GEN-LAST:event_jCBManhaActionPerformed
+
+    private void jCBTardeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBTardeActionPerformed
+        this.jCBManhaActionPerformed(evt);
+    }//GEN-LAST:event_jCBTardeActionPerformed
+
+    private void jCBNoiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBNoiteActionPerformed
+        this.jCBManhaActionPerformed(evt);
+    }//GEN-LAST:event_jCBNoiteActionPerformed
+
+    private void jLPermissoesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jLPermissoesValueChanged
+        DefaultListModel<String> modeloLista = (DefaultListModel<String>) jLPermissoes.getModel();
+        
+        this.preenchido[4] = !(modeloLista.isEmpty());
+        if (modeloLista.getSize()==0){
+            this.preenchido[4] = false;
+            this.ativarBotaoAdicionar();
+        }
+    }//GEN-LAST:event_jLPermissoesValueChanged
     /**
      * @param args the command line arguments
      */
