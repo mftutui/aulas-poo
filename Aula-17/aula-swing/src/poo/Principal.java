@@ -472,6 +472,7 @@ public class Principal extends javax.swing.JFrame {
         jCBNoite.setSelected(false);
         bGSexo.clearSelection();
         this.jBLimparActionPerformed(evt);
+        //jBAdicionar.setEnabled(false);
 
         //mudando o foco do teclado para o campo Nome
         jTFNome.requestFocus();
